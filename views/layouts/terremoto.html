@@ -1,0 +1,80 @@
+<div class="row" style="padding-top: 15px">
+
+	<div class="col-lg-4">
+		<div class="card card_home" ng-click="peticiones()" style="background-color: #4e8bed; cursor:pointer; height: 250px">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/questionary.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%"  class="card-title">
+		    Peticiones
+		    	
+		 		</h1>
+		 		<div class="row">
+		 			<div class="col-lg-6">
+		 				<h1 style="font-size: 200%">
+			 				<span ng-if="devueltas.DEVUELTAS > 0"  title="Peticiones Devueltas" ng-click="peticiones()" class="badge badge-warning text-center">
+			 					<i class="fas fa-exclamation-triangle"></i>
+			 					{{ devueltas.DEVUELTAS }}
+			 				</span>
+			 			</h1>
+		 			</div>
+		 			
+		 			<div class="col-lg-6 text-right">
+		 				<h1 style="font-size: 200%">
+			 				<span ng-if="pendientes.PENDIENTES > 0"  title="Peticiones Pendientes" ng-click="peticionesPendientes()" class="badge badge-danger text-center">
+			 					<i class="fas fa-clock"></i>
+			 					{{ pendientes.PENDIENTES }}
+			 				</span>
+			 			</h1>
+		 			</div>
+		 		</div>
+
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-lg-4">
+		<div class="card card_home" ng-click="servicios_basicos()" style="background-color: #66e86a; cursor:pointer; height: 250px">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/servicios-basicos.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%" class="card-title">Servicios Básicos</h1>
+		  </div>
+		</div>
+	</div>
+
+	<!-- <div class="col-lg-4">
+		<div class="card card_home" ng-click="actividades()" style="background-color: #e8a266; cursor:pointer; height: 250px">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/progress.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%" class="card-title">Seguimiento de Casos</h1>
+		  </div>
+		</div>
+	</div> -->
+
+	<div class="col-lg-4">
+		<div class="card card_home" ng-click="albergues()" style="background-color: #4eb2a3; cursor:pointer; height: 250px">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/hotel.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%" class="card-title">Albergues</h1>
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-lg-4">
+		<div class="card card_home" ng-click="damages()" style="background-color: #db4646; cursor:pointer; height: 250px">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/ruin.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%" class="card-title">Daños</h1>
+		  </div>
+		</div>
+	</div>
+
+	<!-- <div class="col-lg-4">
+		<div class="card card_home" ng-click="dashboard()" style="background-color: #a162e0; cursor:pointer">
+		  <img style="width: 40%; padding-top: 10px" class="rounded mx-auto d-block card-img-top img-fluid" src="public/img/icons/home.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h1 style="color: white; text-align: center; font-size: 200%" class="card-title">Dashboard</h1>
+		  </div>
+		</div>
+	</div> -->
+
+</div>

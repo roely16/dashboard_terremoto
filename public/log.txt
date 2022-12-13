@@ -1,0 +1,19 @@
+********************** ACTIVACIÓN ALERTA ALERTA DE PRUEBA ***********************
+*********************** ACTIVADO POR: Roely Chur **********************
+********************** 03/09/2018 13:32:26 *****************************
+********************** ACTIVACIÓN ALERTA ALERTA DE PRUEBA ***********************
+*********************** ACTIVADO POR: Roely Chur **********************
+********************** 03/09/2018 13:32:49 *****************************
+ID_PERSONA: 1268, NOMBRE: JOHANSPAZ@GMAIL.COM, ID_DISPOSITIVO: SI, FECHA: 03/09/2018 13:32:49
+ID_PERSONA: 1702, NOMBRE: ROELY CHUR, ID_DISPOSITIVO: SI, FECHA: 03/09/2018 13:32:49
+ID_PERSONA: 1704, NOMBRE: JORGE LUIS GUTIÉRREZ GÓMEZ, ID_DISPOSITIVO: SI, FECHA: 03/09/2018 13:32:49
+************************** FIN REGISTRO *******************
+
+********************** ACTIVACIÓN ALERTA ALERTA DE PRUEBA ***********************
+*********************** ACTIVADO POR: Roely Chur **********************
+********************** 03/09/2018 13:34:45 *****************************
+ID_PERSONA: 1268, NOMBRE: JOHANS PAZ, ID_DISPOSITIVO: NO, FECHA: 03/09/2018 13:34:45
+ID_PERSONA: 1702, NOMBRE: ROELY CHUR, ID_DISPOSITIVO: SI, FECHA: 03/09/2018 13:34:45
+ID_PERSONA: 1704, NOMBRE: JORGE LUIS GUTIÉRREZ GÓMEZ, ID_DISPOSITIVO: SI, FECHA: 03/09/2018 13:34:45
+************************** FIN REGISTRO *******************
+

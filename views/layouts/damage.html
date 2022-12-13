@@ -1,0 +1,649 @@
+<section class="tables">
+	<div class="">
+		<div class="row">
+			<div class="col-lg-12">
+			    <div class="card">
+
+         			<div class="card-header d-flex align-items-center">
+			        	<div class="col-lg-8">
+
+				            <ol class="breadcrumb" >
+							    <li class="breadcrumb-item" ><a href="#/">Inicio</a></li>
+							    <li class="breadcrumb-item active" aria-current="page">Daños</li>
+						  	</ol>
+
+						</div>
+						<div class="col-lg-4 text-right">
+							<h1 style="font-size: 200%" ng-if="region" >Región {{ region }}</h1>
+						</div>
+			        </div>
+
+			        <div class="card-body">
+
+			        	<!-- Tabs -->
+			        	<!-- <ul class="nav nav-tabs">
+							<li class="nav-item">
+						    	<a class="nav-link active" data-target="#actividades">Mensajes</a>
+						  	</li>
+						</ul> -->
+
+						<div class="row">
+			        		<div class="col-lg-4">
+			        			<div class="input-group mb-3">
+								  	<input type="text" class="form-control" placeholder="Buscar..." ng-model="search" ng-change="filter()">
+								  	<div class="input-group-prepend">
+									    <span class="input-group-text" id="basic-addon1">
+									    	<i class="fas fa-search"></i>
+									    </span>
+								  	</div>
+								</div>
+			        		</div>
+
+							<div class="col-lg-3 offset-lg-3" ng-if="id_rol != 223">
+								<button class="btn btn-info btn-block" title="Agregar nueva actividad" ng-click="modalCambiarRegion()">Cambiar Región
+			        				<i class="fas fa-sync-alt"></i>
+			        			</button>
+							</div>
+			        		<div class="col-lg-2" ng-if="id_rol != 223">
+			        			<button ng-disabled="!region" class="btn btn-primary btn-block" title="Agregar nueva actividad" ng-click="modalIngresoReporte()">Reportar
+			        				<i class="fas fa-battery-half"></i>
+			        			</button>
+			        		</div>
+
+			        		<div class="col-lg-2 offset-lg-6" ng-if="id_rol == 223">
+			        			<button class="btn btn-primary btn-block" title="Agregar nueva actividad" ng-click="modalIngresoReporte()">Reportar
+			        				<i class="fas fa-plus"></i>
+			        			</button>
+			        		</div>
+
+			        	</div>
+
+	        			<br>
+
+			        	<div class="row" ng-show="filter_data > 0">
+
+			        		<div class="col-lg-12">
+			        			<div>
+						            <table class="table table-sm table-bordered" style="vertical-align: middle">
+						                <thead>
+						                    <tr>
+						                    		<th class="text-center" style="width: 5%">Zona</th>
+						                        <th style="width: 30%">Reporte</th>
+						                        <th class="text-left" style="width: 20%">Cantidad 
+						                        	<!-- <span class="badge badge-danger">Estimada</span> / 
+						                        	<span class="badge badge-success">Confirmada</span> -->
+														</th>
+						                        <th class="text-center" style="width: 20%">Fecha de Reporte</th>
+						                        <th class="text-center" style="width: 20%">Estado</th>
+						                        <th class="text-center" style="width: 5%">Acción</th>
+						                    </tr>
+						                </thead>
+						                <tbody>
+						                    <tr  ng-repeat="reporte in searched = (reportes | filter:search | orderBy : base :reverse) | beginning_data:(current_grid - 1) * data_limit | limitTo:data_limit">
+						                    		<td class="text-center"><h1>{{ reporte.ZONA }}</h1></td>
+						                        <td >{{ reporte.REPORTE }}</td>
+						                        <td class="text-left">
+						                        	<i style="width: 20px" ng-if="reporte.TIPO_REPORTE == 1" class="fas fa-users"></i>
+						                        	<i style="width: 20px" ng-if="reporte.TIPO_REPORTE == 2" class="fas fa-building"></i>
+						                        		<span class="badge badge-danger">
+						                        			{{ reporte.CANTIDAD_ESTIMADA }}
+						                        		</span>
+																/	
+																<span ng-if="reporte.CANTIDAD_CONFIRMADA" class="badge badge-success">
+						                        			{{ reporte.CANTIDAD_CONFIRMADA }}
+						                        		</span>
+
+						                        		<span ng-if="!reporte.CANTIDAD_CONFIRMADA" class="badge badge-success">
+						                        			SIN CONFIRMAR
+						                        		</span>
+						                        </td>
+						                      
+						                       	<td class="text-center">{{ reporte.FECHA_REPORTADO }}</td>
+						                       	<td class="text-center">
+						                       		<h2>
+							                       		<span ng-if="!reporte.FECHA_AVALADO" class="badge badge-danger">
+							                       			REPORTADO
+							                       			<i class="fas fa-info-circle"></i>
+							                       		</span>
+						                       		</h2>
+						                       		<h2>
+							                       		<span ng-if="reporte.FECHA_AVALADO && !reporte.PETICION_REALIZADA" class="badge badge-primary">
+							                       			CONFIRMADO
+							                       			<i class="fas fa-check"></i>
+							                       		</span>
+						                       		</h2>
+
+						                       		<h2>
+							                       		<span ng-if="reporte.FECHA_AVALADO && reporte.PETICION_REALIZADA" class="badge badge-primary">
+							                       			CONFIRMADO
+							                       			<i class="fas fa-check-double"></i>
+							                       		</span>
+						                       		</h2>
+						                       	</td>
+						                        <td class="text-center">
+
+							                        <button class="btn btn-primary btn-sm" ng-click="modalAvalarReporte(reporte.ID_CORRELATIVO)" title="Editar">
+							                        	<i class="fas fa-edit"></i>
+							                        </button>
+
+							                        <!-- <button ng-if="reporte.FECHA_AVALADO" class="btn btn-info btn-sm" ng-click="modalAvalarReporte(reporte.ID_CORRELATIVO)" title="Editar">
+							                        	<i class="fas fa-info-circle"></i>
+							                        </button> -->
+
+						                        </td>
+						                    </tr>
+						                </tbody>
+						            </table>
+			        			</div>
+			        		</div>
+			        	</div>
+
+			        	<div class="row" ng-show="filter_data > 0">
+
+			        		<div class="col-lg-6">
+
+			        			<ul uib-pagination boundary-links="true" items-per-page="data_limit" total-items="filter_data" ng-model="current_grid" ng-change="pageChanged()" first-text="Primera" last-text="Última" previous-text="&laquo;" next-text="&raquo;" num-pages="numPages" max-size="maxSize"></ul>
+
+			        		</div>
+			        	</div>
+
+			        	<div class="col-md-12" ng-show="filter_data == 0">
+							<h4 class="text-center">-- No se encontraron registros --</h4>
+						</div>
+
+
+						<!-- <div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="actividades" role="tabpanel" aria-labelledby="home-tab">
+								<br>
+
+								
+							</div>
+						</div>
+ 						-->
+			    	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Modal para reportar Daño -->
+<div class="modal fade" id="modalIngresoReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    	<div class="modal-content">
+			<form ng-submit="realizarReporte()">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title" id="exampleModalCenterTitle">Reportar Daño</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="form-group">
+						    	<label class="text-center">Tipo de Reporte</label>
+								<div class="custom-control custom-radio">
+								  	<input type="radio" value="1" ng-change="tipoReporte()" ng-model="reporte.TIPO_REPORTE" id="customRadio1" name="customRadio" class="custom-control-input" required>
+								  	<label class="custom-control-label" for="customRadio1">Personas</label>
+								</div>
+								<div class="custom-control custom-radio">
+								  	<input type="radio" value="2" ng-change="tipoReporte()" ng-model="reporte.TIPO_REPORTE" id="customRadio2" name="customRadio" class="custom-control-input" required>
+								  	<label class="custom-control-label" for="customRadio2">Infraestructura</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4" ng-if="reporte.TIPO_REPORTE != ''">
+							<div class="form-group">
+						    	<label class="text-center">Zona</label>
+								<select ng-change="tipoIncidente()" ng-model="reporte.ZONA" class="form-control" required>
+									<option value="">-- Seleccione una zona --</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-lg-5" ng-if="reporte.TIPO_REPORTE != '' && reporte.ZONA != ''">
+							<div class="form-group">
+						    	<label class="text-center">Incidente a Reportar</label>
+								<select ng-model="reporte.INCIDENTE" class="form-control" name="" required>
+									<option value="?">-- Seleccione una opción --</option>
+									<option ng-repeat="tipo in tipos" value="{{ tipo.ID }}">{{ tipo.NOMBRE }}</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-lg-4" ng-if="reporte.INCIDENTE != '?'">
+							<div class="form-group">
+								<label>Cantidad Estimada</label>
+								<input ng-model="reporte.CANTIDAD_ESTIMADA" type="text" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="col-lg-8" ng-if="reporte.INCIDENTE != '?'">
+							<div class="form-group">
+								<label>Observación</label>
+								<textarea ng-model="reporte.OBSERVACION" rows="4" class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div style="padding-top: 20px; padding-bottom: 20px" class="col-lg-12 text-center">
+								<button type="submit" class="btn btn-primary btn-lg">REPORTAR</button>
+							</div>
+						</div>
+
+					</div>
+		      	</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!-- Modal para editar reporte -->
+<div class="modal fade" id="modalAvalarReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    	<div class="modal-content">
+			<form ng-submit="confirmarReporte()">
+		      	<div class="modal-header">
+		        	<h5 ng-if="detalle_reporte.FECHA_AVALADO" class="modal-title">Detalles de Reporte</h5>
+		        	<h5 ng-if="!detalle_reporte.FECHA_AVALADO" class="modal-title">Confirmar Reporte</h5>
+
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+						    	<label class="text-center">Tipo de Reporte</label>
+								<h1 ng-if="detalle_reporte.TIPO_REPORTE == 1">Personas</h1>
+								<h1 ng-if="detalle_reporte.TIPO_REPORTE == 2">Infraestructura</h1>
+							</div>
+						</div>
+						
+						<div class="col-lg-2" ng-if="reporte.TIPO_REPORTE != ''">
+							<div class="form-group">
+						    	<label class="text-center">Zona</label>
+								<h1>{{ detalle_reporte.ZONA }}</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-6" ng-if="reporte.TIPO_REPORTE != '' && reporte.ZONA != ''">
+							<div class="form-group">
+						    	<label class="text-center">Incidente a Reportar</label>
+								<h1>{{ detalle_reporte.REPORTE }}</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label>Fecha de Reporte</label>
+								<h1>{{ detalle_reporte.FECHA_REPORTADO }}</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label>Fecha de Confirmación</label>
+								<h1 ng-if="detalle_reporte.FECHA_AVALADO">{{ detalle_reporte.FECHA_AVALADO }}</h1>
+								<h1 ng-if="!detalle_reporte.FECHA_AVALADO">
+									<span class="badge badge-danger">Sin Confirmar</span>
+								</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label>Cantidad Estimada</label>
+								<h1>{{ detalle_reporte.CANTIDAD_ESTIMADA }}</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-8"">
+							<div class="form-group">
+								<label>Observación</label>
+								<!-- <textarea ng-model="detalle_reporte.OBSERVACION" rows="4" class="form-control" readonly></textarea> -->
+								<h1 ng-if="!detalle_reporte.OBSERVACION">Ninguna</h1>
+								<h1 ng-if="detalle_reporte.OBSERVACION">{{ detalle_reporte.OBSERVACION }}</h1>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label>Cantidad Confirmada</label>
+								<input  type="text" ng-model="detalle_reporte.CANTIDAD_CONFIRMADA" class="form-control">
+								<!-- <h1 ng-if="detalle_reporte.FECHA_AVALADO">{{ detalle_reporte.CANTIDAD_CONFIRMADA }}</h1> -->
+							</div>
+						</div>
+
+						<div class="col-lg-8"">
+							<div class="form-group">
+								<label>Observación Final</label>
+								<textarea  rows="4" ng-model="detalle_reporte.OBSERVACION_CONFIRMACION" class="form-control"></textarea>
+								<!-- <h1 ng-if="detalle_reporte.FECHA_AVALADO && detalle_reporte.OBSERVACION_CONFIRMACION">{{ detalle_reporte.OBSERVACION_CONFIRMACION }}</h1>
+								<h1 ng-if="detalle_reporte.FECHA_AVALADO && !detalle_reporte.OBSERVACION_CONFIRMACION">Ninguna</h1> -->
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div style="padding-top: 20px; padding-bottom: 20px" class="col-lg-12 text-center">
+								<button ng-disabled="detalle_reporte.CANTIDAD_CONFIRMADA == ''" type="submit" class="btn btn-primary btn-lg">ACEPTAR</button>
+							</div>
+						</div>
+
+					</div>
+		      	</div>
+		      	<!-- <div class="modal-footer" ng-if="detalle_reporte.FECHA_AVALADO">
+		        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      	</div> -->
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!-- Modal para seleccionar region -->
+<div class="modal fade" id="modalCambiarRegion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered" role="document">
+    	<div class="modal-content">
+			<div class="modal-header">
+		      <h5 class="modal-title" id="exampleModalCenterTitle">Cambiar Región</h5>
+			   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			      <span aria-hidden="true">&times;</span>
+			   </button>
+		   </div>
+      	<div class="modal-body">
+      		<div class="row">
+      			<div class="col-lg-12 text-center">
+      				<h1>Seleccione una región</h1>
+      			</div>
+      		</div>
+      		<br>
+      		<div class="row">
+      			<div class="col-lg-6 text-center">
+      				<button ng-click="seleccionarRegion(1)" style="width: 200px; height: 100px" class="btn btn-primary">
+      					<h1>Región 1</h1>
+      					<h5 style="font-size: 80%">Zonas: 1, 4, 5, 8, 9, 11</h5>
+      				</button>
+      			</div>
+      			<div class="col-lg-6 text-center">
+      				<button ng-click="seleccionarRegion(2)" style="width: 200px; height: 100px" class="btn btn-info">
+      					<h1>Región 2</h1>
+      					<h5 style="font-size: 80%">Zonas: 2, 3, 6, 7, 10, 19</h5>
+      				</button>
+      			</div>
+      		</div>
+      		<br>
+      		<div class="row">
+      			<div class="col-lg-6 text-center">
+      				<button ng-click="seleccionarRegion(3)" style="width: 200px; height: 100px" class="btn btn-danger">
+      					<h1>Región 3</h1>
+      					<h5 style="font-size: 80%">Zonas: 12, 13, 14, 15, 16, 21</h5>
+      				</button>
+      			</div>
+      			<div class="col-lg-6 text-center">
+      				<button ng-click="seleccionarRegion(4)" style="width: 200px; height: 100px" class="btn btn-secondary">
+      					<h1>Región 4</h1>
+      					<h5 style="font-size: 80%">Zonas: 17, 18, 24, 25</h5>
+      				</button>
+      			</div>
+      		</div>
+      	</div>
+    	</div>
+  	</div>
+</div>
+
+<!-- Modal para emitir peticion -->
+<div class="modal fade" id="modalRealizarPeticion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    	<div class="modal-content">
+			<form ng-submit="realizarSolicitud()">
+		      	<div class="modal-header">
+		        	<h5 class="modal-title" id="exampleModalCenterTitle">Realizar Petición</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          	<span aria-hidden="true">&times;</span>
+			        </button>
+		      	</div>
+		      	<div class="modal-body">
+						<div class="row">
+							<!-- Datos del reporte -->
+							<div class="col-lg-6" style="border-right: 1px dashed #333;">
+								
+								<div class="row">
+									<div class="col-lg-12">
+										<h1 class="text-center">Datos del reporte</h1>
+									</div>
+									<div class="col-lg-9">
+										<div class="form-group">
+									    	<label class="text-center">Tipo de Reporte</label>
+											<h1 ng-if="detalle_reporte.TIPO_REPORTE == 1">Personas</h1>
+											<h1 ng-if="detalle_reporte.TIPO_REPORTE == 2">Infraestructura</h1>
+										</div>
+									</div>
+									
+									<div class="col-lg-3" ng-if="reporte.TIPO_REPORTE != ''">
+										<div class="form-group">
+									    	<label class="text-center">Zona</label>
+											<h1>{{ detalle_reporte.ZONA }}</h1>
+										</div>
+									</div>
+
+									<div class="col-lg-6" ng-if="reporte.TIPO_REPORTE != '' && reporte.ZONA != ''">
+										<div class="form-group">
+									    	<label class="text-center">Incidente a Reportar</label>
+											<h1>{{ detalle_reporte.REPORTE }}</h1>
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										
+									</div>
+
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Cantidad Estimada</label>
+											<h1>{{ detalle_reporte.CANTIDAD_ESTIMADA }}</h1>
+										</div>
+									</div>
+
+									<div class="col-lg-6"">
+										<div class="form-group">
+											<label>Observación</label>
+											<!-- <textarea ng-model="detalle_reporte.OBSERVACION" rows="4" class="form-control" readonly></textarea> -->
+											<h5 ng-if="!detalle_reporte.OBSERVACION">Ninguna</h5>
+											<h5 ng-if="detalle_reporte.OBSERVACION">{{ detalle_reporte.OBSERVACION }}</h5>
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Cantidad Confirmada</label>
+											<h1>{{ detalle_reporte.CANTIDAD_CONFIRMADA }}</h1>
+											<!-- <input  type="text" ng-model="detalle_reporte.CANTIDAD_CONFIRMADA" class="form-control"> -->
+											<!-- <h1 ng-if="detalle_reporte.FECHA_AVALADO">{{ detalle_reporte.CANTIDAD_CONFIRMADA }}</h1> -->
+										</div>
+									</div>
+
+									<div class="col-lg-6"">
+										<div class="form-group">
+											<label>Observación Final</label>
+											<h5 ng-if="!detalle_reporte.OBSERVACION_CONFIRMACION">Ninguna</h5>
+											<h5 ng-if="detalle_reporte.OBSERVACION_CONFIRMACION">{{ detalle_reporte.OBSERVACION_CONFIRMACION }}</h5>
+											<!-- <textarea  rows="4" ng-model="detalle_reporte.OBSERVACION_CONFIRMACION" class="form-control"></textarea> -->
+											<!-- <h1 ng-if="detalle_reporte.FECHA_AVALADO && detalle_reporte.OBSERVACION_CONFIRMACION">{{ detalle_reporte.OBSERVACION_CONFIRMACION }}</h1>
+											<h1 ng-if="detalle_reporte.FECHA_AVALADO && !detalle_reporte.OBSERVACION_CONFIRMACION">Ninguna</h1> -->
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- Datos de la petición -->
+							<div class="col-lg-6">
+								<div class="row">
+									<div class="col-lg-12">
+										<h1 class="text-center">Datos de petición</h1>
+									</div>
+									<div class="col-lg-12">
+									<div class="form-group">
+								    	<label class="text-center" for="exampleInputEmail1">Tipo de Insumo</label>
+										<select ng-model="solicitud.TIPO_INSUMO" ng-change="obtenerInsumos()" class="form-control" name="">
+											<option value=""></option>
+											<option value="{{ tipo_insumo.ID }}" ng-repeat="tipo_insumo in tipos_insumos">{{ tipo_insumo.NOMBRE }}</option>
+											<option value="O">OTRO</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-12" ng-if="solicitud.TIPO_INSUMO && solicitud.TIPO_INSUMO != 'O'">
+									<div class="form-group">
+								    	<label for="exampleInputEmail1">Insumo</label>
+										<select ng-model="solicitud.INSUMO"  class="form-control" name="">
+											<option value=""></option>
+											<option value="{{ insumo.ID }}" ng-repeat="insumo in listado_insumos">{{ insumo.NOMBRE }}</option>
+											<option value="O">OTRO</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-12" ng-if="solicitud.TIPO_INSUMO && (solicitud.TIPO_INSUMO == 'O' || solicitud.INSUMO == 'O' )">
+									<div class="form-group">
+								    	<label for="exampleInputEmail1">Descripción del Insumo</label>
+										<input type="text" class="form-control" ng-model="solicitud.OTRO_INSUMO" style="text-transform:uppercase">
+									</div>
+								</div>
+								<div class="col-lg-12" ng-show="solicitud.TIPO_INSUMO && solicitud.INSUMO && solicitud.INSUMO != 'O'">
+									<div class="form-group">
+								    	<label>Solicitar</label>
+										<select ng-model="solicitud.ROL" class="form-control" id="selectpicker" data-live-search="true">
+											<option value="">-- Seleccione una opción --</option>
+											<!-- <option value="{{ rol.ID }}" ng-repeat="rol in roles">{{ rol.NOMBRE }}</option> -->
+											
+											<optgroup label="COEM">
+												<option value="226" >EQUIPO DIRECTIVO</option>
+										    	<option value="211">SECCIÓN LOGISTICA</option>
+										    	<option value="212">SECCIÓN ADMINISTRATIVA Y FINANZAS</option>
+										    	<option value="218">SECCIÓN OPERACIONES</option>
+										    	<option value="219">SECCIÓN DE PLANIFICACIÓN</option>
+		  									</optgroup>
+
+										  	<optgroup label="ALIADOS EXTERNOS">
+										    	<option value="224">CÁMARA DE LA CONSTRUCCIÓN</option>
+										    	<option value="59">MINISTERIO DE LA DEFENSA</option>
+										    	<option value="225">EEGSA</option>
+										    	<option value="67">TIGO</option>
+										    	<option value="214">CLARO</option>
+										    	<option value="215">TELEFÓNICA</option>
+										    	<option value="65">MINISTERIO DE EDUCACIÓN</option>
+										    	<option value="216">IGLESIA</option>
+										  	</optgroup>
+
+										  	<option value="220">CONCEJO</option>
+		  									<option value="213">BOMBEROS VOLUNTARIOS</option>
+		  									<option value="221">COMUNICACIÓN</option>
+		  									<option value="190">BRIGADISTAS</option>
+		  									<option value="222">VOLUNTARIADO</option>
+		  									<option value="223">ENLACES ZONALES</option>
+		  									<option value="10">ALCALDÍAS AUXILIARES</option>
+											<option value="217">JURÍDICO</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="col-lg-12" ng-show="solicitud.TIPO_INSUMO && solicitud.OTRO_INSUMO">
+									<div class="form-group">
+								    	<label>Solicitar</label>
+										<select ng-model="solicitud.ROL" class="form-control" id="selectpicker2" data-live-search="true">
+											<option value="">-- Seleccione una opción --</option>
+											<optgroup label="COEM">
+												<option value="226" >EQUIPO DIRECTIVO</option>
+										    	<option value="211">SECCIÓN LOGISTICA</option>
+										    	<option value="212">SECCIÓN ADMINISTRATIVA Y FINANZAS</option>
+										    	<option value="218">SECCIÓN OPERACIONES</option>
+										    	<option value="219">SECCIÓN DE PLANIFICACIÓN</option>
+		  									</optgroup>
+
+										  	<optgroup label="ALIADOS EXTERNOS">
+										    	<option value="224">CÁMARA DE LA CONSTRUCCIÓN</option>
+										    	<option value="59">MINISTERIO DE LA DEFENSA</option>
+										    	<option value="225">EEGSA</option>
+										    	<option value="67">TIGO</option>
+										    	<option value="214">CLARO</option>
+										    	<option value="215">TELEFÓNICA</option>
+										    	<option value="65">MINISTERIO DE EDUCACIÓN</option>
+										    	<option value="216">IGLESIA</option>
+										  	</optgroup>
+
+										  	<option value="220">CONCEJO</option>
+		  									<option value="213">BOMBEROS VOLUNTARIOS</option>
+		  									<option value="221">COMUNICACIÓN</option>
+		  									<option value="190">BRIGADISTAS</option>
+		  									<option value="222">VOLUNTARIADO</option>
+		  									<option value="223">ENLACES ZONALES</option>
+		  									<option value="10">ALCALDÍAS AUXILIARES</option>
+											<option value="217">JURÍDICO</option>
+
+										</select>
+									</div>
+								</div>
+			
+								<div class="col-lg-6" ng-if="solicitud.ROL && (solicitud.INSUMO || solicitud.OTRO_INSUMO ) && solicitud.TIPO_INSUMO">
+									<div class="form-group">
+								    	<label for="exampleInputEmail1">Cantidad</label>
+										<input type="text" class="form-control" ng-model="solicitud.CANTIDAD_SOLICITAR" required>
+									</div>
+								</div>
+
+								<div class="col-lg-6" ng-if="solicitud.ROL && (solicitud.INSUMO || solicitud.OTRO_INSUMO ) && solicitud.TIPO_INSUMO">
+									<div class="form-group">
+								    	<label for="exampleInputEmail1">Zona</label>
+										<input type="text" class="form-control" ng-model="solicitud.ZONA" required>
+									</div>
+								</div>
+
+								<div class="col-lg-6" ng-if="solicitud.ROL && (solicitud.INSUMO || solicitud.OTRO_INSUMO ) && solicitud.TIPO_INSUMO">
+									<div class="form-group">
+								    	<label for="exampleInputEmail1">Observaciones</label>
+										<textarea style="text-transform:uppercase" ng-model="solicitud.OBSERVACIONES" name="name" rows="4" class="form-control"></textarea>
+									</div>
+								</div>
+
+								<div class="col-lg-6">
+									<div ng-if="solicitud.ROL && (solicitud.INSUMO || solicitud.OTRO_INSUMO ) && solicitud.TIPO_INSUMO && solicitud.CANTIDAD_SOLICITAR && solicitud.ZONA" style="padding-top: 20px; padding-bottom: 20px; vertical-align: middle" class="col-lg-12 text-center">
+										<button type="submit" class="btn btn-primary btn-lg">SOLICITAR</button>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+		      	</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+

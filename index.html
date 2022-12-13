@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Dashboard - AVE</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="public/vendor/bootstrap/css/bootstrap.min.css">
+
+		<!-- Font Awesome CSS-->
+		<link rel="stylesheet" href="public/fontawesome/css/all.min.css" crossorigin="anonymous">
+
+		<!-- Fontastic Custom icon font-->
+		<link rel="stylesheet" href="public/css/dashboard/fontastic.css">
+
+		<!-- Google fonts - Poppins -->
+
+		<!-- theme stylesheet -->
+		<link rel="stylesheet" href="public/css/dashboard/style.green.css" id="theme-stylesheet">
+
+		<!-- Custom stylesheet - for your changes-->
+		<link rel="stylesheet" href="public/css/dashboard/custom.css">
+
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="public/img/dashboard/ave.png">
+
+		<link rel="stylesheet" href="public/css/jsTree/style.css">
+
+		<!-- Select2 -->
+		<link href="public/css/select2/select2.min.css" rel="stylesheet" />
+
+		<!-- Bootstrap Select -->
+		<link rel="stylesheet" href="public/css/bootstrap-select/bootstrap-select.css">
+	</head>
+	<body>
+
+
+		<div class="page">
+			<header class="header">
+				<nav class="navbar" ng-show="$root.logueado">
+
+					<div class="container-fluid">
+						<div class="navbar-holder d-flex align-items-center justify-content-between">
+							<div class="navbar-header">
+								<!-- Navbar Brand --><a href="#/" class="navbar-brand d-none d-sm-inline-block">
+								<div class="brand-text d-none d-lg-inline-block">
+									<!-- <span> </span> -->
+									<img src="public/img/dashboard/ave.png" style="width: 30px"  class=" rounded-circle rounded mx-auto">
+									<strong>CONECTADO COMO: </strong>
+									<strong ng-controller="homeController" >{{ nombre_usuario | uppercase }}</strong>
+								</div>
+								
+
+								<div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
+								<!-- Toggle Button-->
+							</div>
+
+							<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+								<li class="nav-item" ng-controller="loginController">
+									<a href="" class="nav-link logout" ng-click="cerrar_sesion()">
+										<span class="d-none d-sm-inline">Salir</span>
+										<i class="fas fa-sign-out-alt"></i>
+									</a>
+								</li>
+
+							</ul>
+
+						</div>
+					</div>
+				</nav>
+			</header>
+			<div class="page-content d-flex align-items-stretch" style="background: #edeaea">
+
+
+				<div class="content-inner">
+
+					<div class="container" style="background: #edeaea" ng-view>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<script src="public/vendor/jquery/jquery.min.js"></script>
+		<script src="public/vendor/popper.js/umd/popper.min.js"> </script>
+		<script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="public/vendor/jquery.cookie/jquery.cookie.js"> </script>
+		<script src="public/vendor/jquery-validation/jquery.validate.min.js"></script>
+
+		<script src="public/js/sweetalert/sweetalert2.all.js"></script>
+
+		<!-- Select2 -->
+		<script src="public/js/select2/select2.min.js"></script>
+
+		<!-- Boostrap Select -->
+		<script src="public/js/bootstrap-select/bootstrap-select.js"></script>
+		<script src="public/js/bootstrap-select/i18n/defaults-es_ES.js"></script>
+		<!-- ChartJS -->
+		<script type="text/javascript" src="public/js/chartjs/Chart.bundle.min.js"></script>
+		<script src="public/js/chartjs/Chart.PieceLabel.min.js"></script>
+
+		<!-- Main File -->
+		<script src="public/js/dashboard/front.js"></script>
+
+		<!-- Angular -->
+		<script src="public/js/angular/angular.js"></script>
+		<script src="public/js/angular/angular-route.js"></script>
+		<script src="app/app.js"></script>
+		<script src="app/controllers/loginController.js"></script>
+		<script src="app/controllers/homeController.js"></script>
+
+		<script src="app/controllers/terremotoController.js"></script>
+		<script src="app/controllers/actividadesController.js"></script>
+		<script src="app/controllers/alberguesController.js"></script>
+		<script src="app/controllers/peticionesController.js"></script>
+		<script src="app/controllers/serviciosBasicosController.js"></script>
+		<script src="app/controllers/damageController.js"></script>
+
+		<script src="public/js/angular-ui/ui-bootstrap-tpls-3.0.3.js" type="text/javascript"></script>
+
+		<script type="text/javascript" src="public/js/jsTree/jstree.min.js">
+
+		</script>
+
+	</body>
+</html>
